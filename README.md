@@ -45,6 +45,6 @@ app.UseAuthorization();
 
 ### Substituir as strings
 ```csharp
-<ProjetoID> = Nome único do projeto no Firebase (exemplo: https://ProjetoID.firebaseio.com/)
+<ProjetoID> = Nome único do projeto no Firebase (fácil de encontrar no link do projeto: https://ProjetoID.firebaseio.com/)
 <ApiKey-Firebase> = Apikey para acesso ao projeto no Firebase
 ```
