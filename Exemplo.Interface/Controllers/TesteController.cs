@@ -43,11 +43,40 @@ namespace Exemplo.Interface.Controllers
 
             return Ok(auth.FirebaseToken);
         }
+
+        [HttpPut("trocarsenha")]
+        public async Task<IActionResult> TrocarSenha(TrocarSenhaDto dto)
+        {
+            HttpContext.Request.Headers.TryGetValue("Authorization", out var token);
+
+            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
+
+            var auth = await authProvider.ChangeUserPassword(token.ToString().Replace("Bearer ", ""), dto.NovaSenha);
+
+            return Ok(auth.FirebaseToken);
+        }
+
+        [HttpDelete("excluir")]
+        public async Task<IActionResult> Excluir()
+        {
+            HttpContext.Request.Headers.TryGetValue("Authorization", out var token);
+
+            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
+
+            await authProvider.DeleteUserAsync(token.ToString().Replace("Bearer ", ""));
+
+            return Ok();
+        }
     }
 
     public class LoginDto
     {
         public string Email { get; set; }
         public string Senha { get; set; }
+    }
+
+    public class TrocarSenhaDto
+    {
+        public string NovaSenha { get; set; }
     }
 }
